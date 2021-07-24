@@ -1,15 +1,18 @@
 import XCTest
-@testable import DI
+import DI
 
 final class DITests: XCTestCase {
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct
-        // results.
-        XCTAssertEqual(DI().text, "Hello, World!")
+    func testRegisterAndResolve() {
+        let sampleComponent = "This is a test component"
+        
+        let returnedValue = DI.shared.register(type: String.self, component: sampleComponent)
+        XCTAssertEqual(sampleComponent, returnedValue)
+        
+        let resolvedValue = DI.shared.resolve(type: String.self)
+        XCTAssertEqual(sampleComponent, resolvedValue)
     }
 
     static var allTests = [
-        ("testExample", testExample),
+        ("Test register and resolve of a component", testRegisterAndResolve),
     ]
 }
